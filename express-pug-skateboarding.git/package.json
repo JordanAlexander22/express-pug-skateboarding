@@ -1,0 +1,15 @@
+{
+  "name": "expresspugsk8",
+  "version": "1.0.0",
+  "description": "skateboarding progess app made with node express and pugjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "express-pug-skateboarding"
+  },
+  "author": "jordan-covo",
+  "license": "MIT"
+}
