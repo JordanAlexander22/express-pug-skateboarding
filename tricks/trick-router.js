@@ -1,6 +1,6 @@
 const express = require("express");
 const Tricks = require("./tricks-model");
-//const Tasks = require("../tasks/task-model");
+const Tasks = require("../tasks/task-model");
 
 const router = express.Router();
 
@@ -52,9 +52,32 @@ router.post("/", async (req, res) => {
 
 // Tasks
 
+router.get("/:id/tasks", async (req, res) => {
+  const { id } = req.params;
 
+  try {
+    const tasks = await Tasks.findTasks(id);
+    const transformedTasks = tasks.map(task => {
+      return {
+        ...task,
+        completed: task.completed === 0 ? false : true
+      };
+    });
+    res.status(200).json(transformedTasks);
+  } catch (error) {
+    res.status(500).json({ error: "Task not found" });
+  }
+});
 
-
-
+// post a task to a trick        
+router.post("/:id/tasks", (req, res) => {
+  Tricks.addTask(req.body, req.params.id)
+    .then(task => {
+      res.status(201).json(task);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to add task." });
+    });
+});
 
 module.exports = router;
