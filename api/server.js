@@ -3,13 +3,15 @@ const server = express();
 const trickRouter= require("../tricks/trick-router")
 const resourceRouter= require("../resources/resource-router")
 
+server.set('view engine', 'pug');
 server.use(express.json());
+
+server.get("/", (req, res) => {
+  res.render("index");
+});
 
 server.use("/api/tricks", trickRouter);
 server.use("/api/resources", resourceRouter);
 
-server.get("/", (req, res) => {
-  res.send("<h1>test </h1>");
-});
 
 module.exports= server;

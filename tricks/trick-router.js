@@ -4,6 +4,8 @@ const Tasks = require("../tasks/task-model");
 
 const router = express.Router();
 
+
+// GET list of all Tricks Stored
 router.get("/", async (req, res) => {
   try {
     const tricks = await Tricks.findTricks();
@@ -18,6 +20,8 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Tricks could not be retrieved." });
   }
 });
+
+//GET Tricks by ID
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
@@ -35,6 +39,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// ADD a trick
 router.post("/", async (req, res) => {
   const trickData = req.body;
 
