@@ -71,11 +71,12 @@ router.get("/:id/tasks", async (req, res) => {
 
 // post a task to a trick        
 router.post("/:id/tasks", (req, res) => {
-  Tricks.addTask(req.body, req.params.id)
+  Tricks.addTasks(req.body, req.params.id)
     .then(task => {
       res.status(201).json(task);
     })
     .catch(err => {
+      console.log(err)
       res.status(500).json({ message: "Failed to add task." });
     });
 });

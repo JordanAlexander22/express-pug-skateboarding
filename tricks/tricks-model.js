@@ -2,9 +2,10 @@ const db = require("../data/db-config");
 
 module.exports = {
   findTricks,
-  findById, //(id)
+  findById,
   add,
-  remove
+  remove,
+  addTasks
 };
 
 function findTricks() {
@@ -23,4 +24,12 @@ function remove(id) {
   return db("tricks")
     .where({ id })
     .del();
+}
+
+// POST for adding tasks to trick is included below
+
+function addTasks(task, id) {
+  return db("tasks")
+    .where({ trick_id: id })
+    .insert(task);
 }

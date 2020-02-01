@@ -2,7 +2,7 @@ const db = require("../data/db-config");
 
 module.exports = {
   findTasks,
-  add
+  addTasks
 };
 
 function findTasks(id) {
@@ -19,7 +19,7 @@ function findTasks(id) {
     .where({ trick_id: id });
 }
 
-function add(task, id) {
+function addTasks(task, id) {
   return db("tasks")
     .where({ trick_id: id })
     .insert(task);
