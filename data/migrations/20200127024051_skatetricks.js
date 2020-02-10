@@ -9,6 +9,12 @@ exports.up = function(knex) {
         .notNullable()
         .defaultTo(true);
     })
+    .createTable('users', table => {
+      table.increments();
+      table.string('username', 128).notNullable().unique();
+      table.string('password').notNullable();
+    })
+
     .createTable("resources", tbl => {
       tbl.increments();
       tbl.string("name").notNullable();
@@ -60,5 +66,6 @@ exports.down = function(knex) {
     .dropTableIfExists("tricks")
     .dropTableIfExists("resources")
     .dropTableIfExists("tasks")
-    .dropTableIfExists("trick_resources");
+    .dropTableIfExists("trick_resources")
+    .dropTableIfExists("user");
 };

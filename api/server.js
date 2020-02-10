@@ -3,11 +3,10 @@ const server = express();
 const trickRouter= require("../tricks/trick-router")
 const resourceRouter= require("../resources/resource-router")
 
-server.set('view engine', 'pug');
 server.use(express.json());
 
 server.get("/", (req, res) => {
-  res.render("index");
+  res.send("test");
 });
 
 server.use("/api/tricks", trickRouter);

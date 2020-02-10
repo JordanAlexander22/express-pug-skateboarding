@@ -1,7 +1,7 @@
 {
   "name": "expresspugsk8",
   "version": "1.0.0",
-  "description": "skateboarding progess app made with node, express, sqlite3 and pugjs",
+  "description": "skateboarding progess app made with node, express, sqlite3 and react",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,15 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "express-pug-skateboarding"
+    "url": "express-skateboarding"
   },
   "author": "jordan-covo",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.8",
-    "pug": "^2.0.4",
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
