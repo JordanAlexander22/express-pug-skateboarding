@@ -5,7 +5,7 @@ const { newToken } = require("./authMid");
 const Users = require("../users/user-model");
 
 
-//Login //Register
+//Login and Register
 router.post("/register", (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10);
@@ -29,7 +29,7 @@ router.post("/login", (req, res) => {
   Users.findby({ username })
     .first()
     .then(user => {
-      console.log(Users.password);
+    //   console.log(user.password);
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = newToken(Users);
         res.status(200).json({
