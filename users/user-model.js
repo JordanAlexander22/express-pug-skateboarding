@@ -19,5 +19,9 @@ module.exports = {
           .where("id", id)
           .first()
       );
+  },
+  findby: filter =>{
+    return db ("users").where(filter).first();
   }
+  
 };

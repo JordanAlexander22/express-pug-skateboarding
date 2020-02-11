@@ -43,7 +43,6 @@ router.post("/", async (req, res) => {
 
 
 //delete a resource 
-
 router.delete('/:id', async (req, res)=> {
   try {
     console.log(Resources)
