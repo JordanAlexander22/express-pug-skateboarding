@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const { newToken } = require("./authMid");
 const Users = require("../users/user-model");
 const Tricks = require("../tricks/tricks-model");
+const Tasks = require("../tasks/task-model");
 
 
 //Login and Register
@@ -63,6 +64,19 @@ router.post("/tricks", async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: "Failed to create new trick" });
     }
+  });
+
+//    post a task to a trick
+//    make sure to also include trick_id in the request        
+router.post("/:id/tasks", (req, res) => {
+    Tricks.addTasks(req.body, req.params.id)
+      .then(task => {
+        res.status(201).json(task);
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(500).json({ message: "Failed to add task." });
+      });
   });
 
 
