@@ -39,21 +39,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// ADD a trick
-router.post("/", async (req, res) => {
-  const trickData = req.body;
-
-  if (!req.body)
-    return res.status(400).json({
-      errorMessage: "Please provide required info."
-    });
-  try {
-    const trick = await Tricks.add(trickData);
-    res.status(201).json(trick);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to create new trick" });
-  }
-});
+// MOVED ADDING TRICKS TO AUTH ROUTER!
 
 // Tasks
 

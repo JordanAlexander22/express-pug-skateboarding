@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const { newToken } = require("./authMid");
 const Users = require("../users/user-model");
+const Tricks = require("../tricks/tricks-model");
 
 
 //Login and Register
@@ -23,6 +24,7 @@ router.post("/register", (req, res) => {
     });
 });
 
+//login to recieve token
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
 
@@ -45,6 +47,23 @@ router.post("/login", (req, res) => {
       res.status(500).json({ message: "failed to login" });
     });
 });
+
+// need to be logged in to add a trick 
+// ADD a trick
+router.post("/tricks", async (req, res) => {
+    const trickData = req.body;
+  
+    if (!req.body)
+      return res.status(400).json({
+        errorMessage: "Please provide required info."
+      });
+    try {
+      const trick = await Tricks.add(trickData);
+      res.status(201).json(trick);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to create new trick" });
+    }
+  });
 
 
 module.exports = router;
