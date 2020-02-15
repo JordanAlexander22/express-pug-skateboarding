@@ -80,4 +80,23 @@ router.post("/:id/tasks", (req, res) => {
   });
 
 
+  //get tasks per trick
+   router.get("/:id/tasks", async (req, res) => {
+   const { id } = req.params;
+
+   try {
+     const tasks = await Tasks.findTasks(id);
+     const transformedTasks = tasks.map(task => {
+       return {
+         ...task,
+         completed: task.completed === 0 ? false : true
+       };
+     });
+     res.status(200).json(transformedTasks);
+   } catch (error) {
+     res.status(500).json({ error: "Task not found" });
+   }
+ });
+
+
 module.exports = router;

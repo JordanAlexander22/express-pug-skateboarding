@@ -41,24 +41,7 @@ router.get("/:id", async (req, res) => {
 
 // MOVED ADDING TRICKS TO AUTH ROUTER!
 
-// Tasks
 
-router.get("/:id/tasks", async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const tasks = await Tasks.findTasks(id);
-    const transformedTasks = tasks.map(task => {
-      return {
-        ...task,
-        completed: task.completed === 0 ? false : true
-      };
-    });
-    res.status(200).json(transformedTasks);
-  } catch (error) {
-    res.status(500).json({ error: "Task not found" });
-  }
-});
 
 
 
