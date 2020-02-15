@@ -98,7 +98,7 @@ router.get("/:id/tasks", async (req, res) => {
 });
 
 // add a resource
-router.post("/", async (req, res) => {
+router.post("/resources", async (req, res) => {
   const resourceData = req.body;
 
   if (!req.body)
