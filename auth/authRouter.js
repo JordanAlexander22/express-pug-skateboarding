@@ -97,6 +97,26 @@ router.get("/:id/tasks", async (req, res) => {
   }
 });
 
+//delete trick
+router.delete("/tricks/:id", async (req, res) => {
+    try {
+      console.log(Tricks);
+      const ID = await Tricks.remove(req.params.id);
+  
+      if (ID > 0) {
+        res.status(200).json({ message: "trick has been deleted" });
+      } else {
+          console.log(404)
+        res.status(404).json({ message: "this trick can not be found" });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "unable to delete trick from db" });
+    }
+  });
+
+
+
 // add a resource
 router.post("/resources", async (req, res) => {
   const resourceData = req.body;
@@ -114,7 +134,7 @@ router.post("/resources", async (req, res) => {
 });
 
 //delete a resource
-router.delete("/:id/resources", async (req, res) => {
+router.delete("resources/:id/", async (req, res) => {
   try {
     console.log(Resources);
     const ID = await Resources.remove(req.params.id);
