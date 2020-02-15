@@ -66,36 +66,6 @@ router.post("/tricks", async (req, res) => {
   }
 });
 
-//    post a task to a trick
-//    make sure to also include trick_id in the request
-router.post("/:id/tasks", (req, res) => {
-  Tricks.addTasks(req.body, req.params.id)
-    .then(task => {
-      res.status(201).json(task);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ message: "Failed to add task." });
-    });
-});
-
-//get tasks per trick
-router.get("/:id/tasks", async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const tasks = await Tasks.findTasks(id);
-    const transformedTasks = tasks.map(task => {
-      return {
-        ...task,
-        completed: task.completed === 0 ? false : true
-      };
-    });
-    res.status(200).json(transformedTasks);
-  } catch (error) {
-    res.status(500).json({ error: "Task not found" });
-  }
-});
 
 //delete trick
 router.delete("/tricks/:id", async (req, res) => {
@@ -115,6 +85,36 @@ router.delete("/tricks/:id", async (req, res) => {
     }
   });
 
+//get tasks per trick
+router.get("/:id/tasks", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const tasks = await Tasks.findTasks(id);
+    const transformedTasks = tasks.map(task => {
+      return {
+        ...task,
+        completed: task.completed === 0 ? false : true
+      };
+    });
+    res.status(200).json(transformedTasks);
+  } catch (error) {
+    res.status(500).json({ error: "Task not found" });
+  }
+});
+
+//    post a task to a trick
+//    make sure to also include trick_id in the request
+router.post("/:id/tasks", (req, res) => {
+    Tricks.addTasks(req.body, req.params.id)
+      .then(task => {
+        res.status(201).json(task);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ message: "Failed to add task." });
+      });
+  });
 
 
 // add a resource
