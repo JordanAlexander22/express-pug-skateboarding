@@ -86,7 +86,7 @@ router.delete("/tricks/:id", async (req, res) => {
   });
 
 //get tasks per trick
-router.get("/:id/tasks", async (req, res) => {
+router.get("/tricks/:id/tasks", async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -105,7 +105,7 @@ router.get("/:id/tasks", async (req, res) => {
 
 //    post a task to a trick
 //    make sure to also include trick_id in the request
-router.post("/:id/tasks", (req, res) => {
+router.post("/tricks/:id/tasks", (req, res) => {
     Tricks.addTasks(req.body, req.params.id)
       .then(task => {
         res.status(201).json(task);
@@ -115,6 +115,25 @@ router.post("/:id/tasks", (req, res) => {
         res.status(500).json({ message: "Failed to add task." });
       });
   });
+//delete a specific task
+router.delete("/tricks/:id/tasks", async (req, res) => {
+    try {
+      console.log(Tricks);
+      const ID = await Tricks.remove(req.params.id);
+  
+      if (ID > 0) {
+        res.status(200).json({ message: "task has been deleted" });
+      } else {
+          console.log(404)
+        res.status(404).json({ message: "this task can not be found" });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "unable to delete task from db" });
+    }
+  });
+
+
 
 
 // add a resource
